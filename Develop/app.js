@@ -49,7 +49,7 @@ const questions = [
   {
     type: "input",
     message: "What is your office number?",
-    name: "office",
+    name: "officeNumber",
     when: (response) => response.role === "Manager",
   },
 ];
