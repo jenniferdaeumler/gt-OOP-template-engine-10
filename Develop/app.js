@@ -61,48 +61,47 @@ const questions = [
 ];
 //Inquirer init
 inquirer
-.prompt(questions)
-//Role selected creates new object specific to role
-.then(function (response) {
-let employee;
-if(response.role === "Engineer"){
-  employee = new Engineer (
-    response.name,
-    response.id,
-    response.email,
-    response.github
-  );
-  } else if (response.role === "Intern"){
-      employee = new Intern (
+  .prompt(questions)
+  //Role selected creates new object specific to role
+  .then(function (response) {
+    let employee;
+    if (response.role === "Engineer") {
+      employee = new Engineer(
+        response.name,
+        response.id,
+        response.email,
+        response.github
+      );
+    } else if (response.role === "Intern") {
+      employee = new Intern(
         response.name,
         response.id,
         response.email,
         response.school
-      );    
-  } else if (response.role === "Manager"){
-    employee = new Intern (
-      response.name,
-      response.id,
-      response.email,
-      response.officeNumber
-    );
+      );
+    } else if (response.role === "Manager") {
+      employee = new Intern(
+        response.name,
+        response.id,
+        response.email,
+        response.officeNumber
+      );
+    }
+    //Blank array pushed with employee responses
+    employeeResponses.push(employee);
+    console.log(employeeResponses);
+
+    if (response.add === "Yes") {
+      inquirer.prompt(questions);
+    } else {
+      console.log("Finished");
 }
-//Blank array pushed with employee responses 
-employeeResponses.push(employee);
-console.log(employeeResponses);
+  });
 
-if (response.add==="Yes"){
-    console.log("Add more");
-     inquirer.prompt(questions);
-} else {console.log("Finished")};
-});
-
-
+  render(employeeResponses)
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
-
-
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
