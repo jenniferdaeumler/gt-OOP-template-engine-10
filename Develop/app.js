@@ -53,14 +53,16 @@ const questions = [
     when: (response) => response.role === "Manager",
   },
   {
-    type: "confirm",
+    type: "list",
     message: "Do you want to add another employee?",
     name: "add",
+    choices: ["Yes", "No"],
   },
 ];
-
+//Inquirer init
 inquirer
 .prompt(questions)
+//Role selected creates new object specific to role
 .then(function (response) {
 let employee;
 if(response.role === "Engineer"){
@@ -85,8 +87,16 @@ if(response.role === "Engineer"){
       response.officeNumber
     );
 }
-console.log(employee);
+//Blank array pushed with employee responses 
+employeeResponses.push(employee);
+console.log(employeeResponses);
+
+if (response.add==="Yes"){
+    console.log("Add more");
+    //  inquirer.prompt(questions);
+} else {console.log("Finished")};
 });
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
