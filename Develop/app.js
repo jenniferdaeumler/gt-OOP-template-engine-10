@@ -93,7 +93,7 @@ console.log(employeeResponses);
 
 if (response.add==="Yes"){
     console.log("Add more");
-    //  inquirer.prompt(questions);
+     inquirer.prompt(questions);
 } else {console.log("Finished")};
 });
 
