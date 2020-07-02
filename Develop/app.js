@@ -59,52 +59,57 @@ const questions = [
     choices: ["Yes", "No"],
   },
 ];
+
 //Inquirer init
-inquirer
+const init = () => inquirer
   .prompt(questions)
   //Role selected creates new object specific to role
-  .then(function (response) {
-    let employee;
-    if (response.role === "Engineer") {
-      employee = new Engineer(
-        response.name,
-        response.id,
-        response.email,
-        response.github
-      );
-    } else if (response.role === "Intern") {
-      employee = new Intern(
-        response.name,
-        response.id,
-        response.email,
-        response.school
-      );
-    } else if (response.role === "Manager") {
-      employee = new Intern(
-        response.name,
-        response.id,
-        response.email,
-        response.officeNumber
-      );
-    }
-    //Blank array pushed with employee responses
-    employees.push(employee);
-    console.log(employees);
+  .then(createTeam);
 
-    if (response.add === "Yes") {
-      inquirer.prompt(questions);
-    } else {
-      console.log("Finished");
-}
-fs.writeFile(outputPath,render(employees),function(err){
-    if(err){
-        return console.log(err);
+//Function that adds all team info to specific employee
+function createTeam(response) {
+  let employee;
+  if (response.role === "Engineer") {
+    employee = new Engineer(
+      response.name,
+      response.id,
+      response.email,
+      response.github
+    );
+  } else if (response.role === "Intern") {
+    employee = new Intern(
+      response.name,
+      response.id,
+      response.email,
+      response.school
+    );
+  } else if (response.role === "Manager") {
+    employee = new Intern(
+      response.name,
+      response.id,
+      response.email,
+      response.officeNumber
+    );
+  }
+  //Blank array pushed with employee responses
+  employees.push(employee);
+  console.log(employees);
+
+  if (response.add === "Yes") {
+    inquirer.prompt(questions).then(createTeam);
+  } else {
+    console.log("Finished");
+  }
+  fs.writeFile(outputPath, render(employees), function (err) {
+    if (err) {
+      return console.log(err);
     }
     console.log("Sucess");
-  })
   });
+}
+init();
 
- 
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
