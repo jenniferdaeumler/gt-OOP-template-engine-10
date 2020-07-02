@@ -66,6 +66,7 @@ const init = () => inquirer
   //Role selected creates new object specific to role
   .then(createTeam);
 
+
 //Function that adds all team info to specific employee
 function createTeam(response) {
   let employee;
@@ -96,7 +97,7 @@ function createTeam(response) {
   console.log(employees);
 
   if (response.add === "Yes") {
-    inquirer.prompt(questions).then(createTeam);
+    init();
   } else {
     console.log("Finished");
   }
