@@ -9,7 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const employeeResponses = [];
+const employees = [];
 
 //Question list for inquirer, creates objects for each employee
 const questions = [
@@ -88,17 +88,23 @@ inquirer
       );
     }
     //Blank array pushed with employee responses
-    employeeResponses.push(employee);
-    console.log(employeeResponses);
+    employees.push(employee);
+    console.log(employees);
 
     if (response.add === "Yes") {
       inquirer.prompt(questions);
     } else {
       console.log("Finished");
 }
+fs.writeFile(outputPath,render(employees),function(err){
+    if(err){
+        return console.log(err);
+    }
+    console.log("Sucess");
+  })
   });
 
-  render(employeeResponses)
+ 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
