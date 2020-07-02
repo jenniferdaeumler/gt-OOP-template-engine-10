@@ -77,7 +77,7 @@ function createTeam(response) {
       response.github
     );
   } else if (response.role === "Intern") {
-    employee = new Intern(
+    employee = new Manager(
       response.name,
       response.id,
       response.email,
